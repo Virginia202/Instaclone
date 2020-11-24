@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container top">
+    <div class="row">
+        <div class="col-md-7" style="font-size:23px;">
+                <p class="home-text">
+                    <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>
+                </p> 
+                <img src="{{image.photo.url}}" alt="Image" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
+                <p>{{image.image_caption}} </p>
+               
+                <hr>
+                <div>
+                {% for comment in comments %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="{% url 'profile' username=comment.user.username %}">{{comment.user.username}}</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p>{{comment.comment}} </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h3>There are no comments</h3>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <form action="{% url 'image_comment' image_id=image.id %}" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input type="submit" class="btn btn-success" value="Write Comment" style="font-size:21px;">
+                </form>
+            </div>
+        </div>
+</div>
+{% endblock %}

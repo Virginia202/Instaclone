@@ -1,0 +1,40 @@
+{% extends 'registration/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <div class="row registration">
+      <div class="col-md-6">
+        <img src="/static/images/neonbrand-z3kBG5xIhjo-unsplash.jpg" alt="" class="img-responsive" height="650px" width="650px">
+      </div> 
+        <div class="col-md-6">
+            {% if form.errors %}
+                <p>Some information may be incorrect</p>
+            {% endif %}
+            <div class="new_registry">
+                <div class="section">
+                    <h1><i class="fa fa-instagram fa-1x"></i> Instagum</h1>
+                    <div class="form-section">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="row">
+                              <div class="col-md-3 form-group">
+                                    <input type="submit" class="btn btn-primary btn-sm" value="Sign up">
+                                  <input type="hidden" name="next" value="{{next}}">
+                              </div>
+                            </form>
+                              <div class="col-md-9">
+                                  <p>Already Have an account? <a href="/accounts/login/">Sign In</a></p>  
+                              </div>
+                            </div>
+                            
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
